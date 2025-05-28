@@ -1,0 +1,22 @@
+[alias]
+
+[build]
+# Default to RP2350 (Cortex-M33)
+target = "thumbv8m.main-none-eabihf"
+
+[target.thumbv8m.main-none-eabihf]
+rustflags = ["-C", "target-cpu=cortex-m33"]
+runner = "probe-rs run --chip RP235x --protocol swd"
+
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+rustflags = [
+    # Code-size optimizations.
+    #   trap unreachable can save a lot of space, but requires nightly compiler.
+    #   uncomment the next line if you wish to enable it
+    # "-Z", "trap-unreachable=no",
+    "-C",
+    "no-vectorize-loops",
+]
+
+[env]
+DEFMT_LOG = "debug"

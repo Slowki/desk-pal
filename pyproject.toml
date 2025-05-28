@@ -1,0 +1,7 @@
+[project]
+name = "desk-pal"
+version = "0.1.0"
+description = "A friend for your desk top!"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pyserial>=3.5"]
