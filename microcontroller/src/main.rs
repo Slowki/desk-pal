@@ -66,7 +66,7 @@ async fn main(_spawner: Spawner) {
     servo_tx_config.baudrate = 57600;
     let mut tx_to_servo = embassy_rp::uart::UartTx::new(
         peripherals.UART0,
-        peripherals.PIN_2,
+        peripherals.PIN_0,
         peripherals.DMA_CH0,
         servo_tx_config,
     );
@@ -117,6 +117,9 @@ async fn main(_spawner: Spawner) {
 
     let cdc_future = async {
         let packet_maker = dynamixel::PacketMaker::new(SERVO_ID);
+
+        // Wait 1 second for the servo to come online
+        embassy_time::Timer::after_secs(1).await;
 
         match send_serial_command(
             &mut tx_to_servo,

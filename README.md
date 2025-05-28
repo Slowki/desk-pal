@@ -23,11 +23,23 @@ See `./example.py` for an example.
 
 ### Flashing the Pico
 
+#### With debug probe
+
 Install [probe-rs](https://probe.rs/), connect to the SWD port of the Pico, and run:
 
 ```bash
 cd microcontroller
 cargo run --release
+```
+
+#### Via picotool
+
+Install [picotool](https://github.com/raspberrypi/picotool), then run:
+
+```bash
+cd microcontroller
+cargo build --release
+picotool load target/thumbv8m.main-none-eabihf/release/microcontroller -t elf
 ```
 
 ### T-Rex 3D Model
